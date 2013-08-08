@@ -132,18 +132,84 @@ var serial_maker = function(){
     }
 }
 
-var seqer = serial_maker()
-seqer.set_prefix('S')
-seqer.set_seq(1000)
-var unique  = seqer.gensym()
+//var seqer = serial_maker()
+//seqer.set_prefix('S')
+//seqer.set_seq(1000)
+//var unique  = seqer.gensym()
+//
+//var seqer_2 = serial_maker()
+//seqer_2.set_prefix('Q')
+//seqer_2.set_seq(2000)
+//var unique_2  = seqer_2.gensym()
+//
+//
+//document.writeln('new output:'+'<br>');
+//document.writeln(unique +'<br>')
+//document.writeln('new output:'+'<br>');
+//document.writeln(unique_2)
 
-var seqer_2 = serial_maker()
-seqer_2.set_prefix('Q')
-seqer_2.set_seq(2000)
-var unique_2  = seqer_2.gensym()
+//Curry example ?
+
+//Memoization examples
+
+//a ok exapmle to start but need do better
+var fibonaci = function (n){
+    console.log('c me')
+    return n<2 ? n:fibonaci(n-1) + fibonaci(n-2)
+};
 
 
-document.writeln('new output:'+'<br>');
-document.writeln(unique +'<br>')
-document.writeln('new output:'+'<br>');
-document.writeln(unique_2)
+number = 3
+document.writeln('Here is my fibonaci sequence from 0 to '+number + '<br>');
+for (var i=0; i<number; i+=1){
+    document.writeln(fibonaci(i))
+}
+document.writeln('<br><br>')
+
+//improved example by memoize 
+number = 10
+var fibonacci = (function(){
+    //console.log('call me')
+    var memo = [0,1]
+    var fib = function(n) {
+        var result = memo[n];
+        if (typeof result !== 'number'){   
+            //if the result not in our memo dictionary, then add inton memo 
+            result = fib(n-1) + fib(n-2)
+            memo[n] = result
+        }
+        return result;
+    }
+    return fib;
+}())
+document.writeln('Here is my faster fibonaci sequence from 0 to '+number + '<br>');
+for (var i=0; i<number; i+=1){
+    document.writeln(fibonacci(i))
+}
+
+
+//an even better example by generalize meomoizer 
+var memoizer = function(memo,formula){
+    var recur = function(n){
+        var result = memo[n];
+        if (typeof result !== 'number'){
+            result = formula(recur,n);
+        }
+        return result
+    }
+    return recur
+}
+
+var fibonaccci = memoizer([0,1], function(recur,n){
+    return recur(n-1) + recur(n-2)
+});
+
+var fibonaccci = memoizer([1,1], function(recur,n){
+    return n*recur(n-1)
+});
+
+document.writeln('<br><br>')
+document.writeln('an even better fibonaci sequence from 0 to '+number + '<br>');
+for (var i=0; i<number; i+=1){
+    document.writeln(fibonaccci(i))
+}
