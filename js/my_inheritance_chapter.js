@@ -78,7 +78,7 @@ myCat_2.get_name = function(){
 var mammal = function (spec){
     var that = {}
     that.get_name = function(){
-        return spec.name
+        return spec.name || ''
     } 
     that.says = function() {
         return spec.saying || ''
