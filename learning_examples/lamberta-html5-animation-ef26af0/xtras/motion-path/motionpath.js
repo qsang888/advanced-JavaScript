@@ -27,6 +27,7 @@ MotionPath.prototype.addPath = function (path) {
  */
 MotionPath.prototype.interpolate = function (t) {
   if (this.paths.length === 1) {
+      console.log('run me')
     return this.paths[0].interpolate(this.start, t);
     
   } else {

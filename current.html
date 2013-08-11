@@ -11,6 +11,36 @@
   <body>
     
 <!--    <script src = 'my_function_chapter.js'></script>-->
-    <script src = 'js/my_inheritance_chapter.js'></script>
+<!--    <script src = 'js/my_inheritance_chapter.js'></script>-->
+<!--      <script src = 'js/my_array_chaptera.js'></script>-->
+      <script>
+      function FirstReverse(str) { 
+           array = []
+          // code goes here  
+          for (var i=str.length-1;i>=0;i-=1){
+            array[array.length] = str[i]
+          }
+          return array.join(''); 
+                 
+        }
+        
+//        document.write(FirstReverse('sdfdfa'));      
+          
+          function FirstFactorial(num) { 
+               result = num
+              // code goes here  
+              for (var i = num-1;i>=1;i-=1){
+                   result = result * i
+              }
+                  
+                  
+              return result; 
+         
+          }
+          
+//          document.write(FirstFactorial(1) + "<br");
+          document.write(FirstFactorial(1))
+      
+      </script>
   </body>
 </html>
