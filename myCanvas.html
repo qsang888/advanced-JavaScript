@@ -29,8 +29,6 @@
         //create an image on a canvas, set up position
         ////render my ball circles
         var myBall = Shape.Ball()
-        console.log('myBall first times:',myBall)
-        
           angle = 0
           centerY = 200,
               
@@ -39,13 +37,8 @@
           centerScale = .3
         
           //start position of ball        
-          update_date = {
-              x: 40,
-              y:canvas.height / 2
-          }
-          myBall.update(update_date)
-          console.log('myBall secnod times:',myBall)
-          console.log('myBall getLocation:',myBall.getLocation())
+          myBall.x = 40;
+          myBall.y = canvas.height / 2;
         
      (function drawFrame () {
          
@@ -53,28 +46,18 @@
         
           context.clearRect(0,0,canvas.width,canvas.height);
 
-//          update();
+          update();
           
-//          draw_path();
+          draw_path();
         
           myBall.draw(context);  
-         
-//         console.log('myBall',myBall)
         
-        
+
     }());   
         
 function draw_path(){
     start_postion_x = myBall.x 
     start_postion_y = myBall.y
-    
-    //balls current motion
-//    myBall.y = canvas.height / 2 + Math.sin(Math.PI*speed) * range; 
-//    myBall.x += .5  
-    
-    //given speed, range, calculate the path
-//    speed += slicer_speed.value/300
-//    range  = slicer_range.value
       
       var feq = 800
       
@@ -88,21 +71,13 @@ function draw_path(){
       new_speed = speed
       new_range = range
      
-//      console.log('copy_ball:',copy_ball)
       for (var i = 0; i<feq; i+=1){
-          
-        //need a update method for ball
-//        new_speed   =  speed
-//        new_range   =  range
+        
         
         new_speed   += slicer_speed.value/300
         copy_ball.y = canvas.height / 2 + Math.sin(Math.PI*new_speed) * range 
         copy_ball.x += .5  
-
-//        console.log(copy_ball.y)
-//        console.log(copy_ball.x)
-//        
-                
+        
         copy_ball.scaleX = copy_ball.scaleY = centerScale/5
         
         copy_ball.draw(context)
