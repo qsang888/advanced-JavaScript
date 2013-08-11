@@ -29,8 +29,6 @@
         //create an image on a canvas, set up position
         ////render my ball circles
         var myBall = Shape.Ball()
-        console.log('myBall first times:',myBall)
-        
           angle = 0
           centerY = 200,
               
@@ -39,13 +37,8 @@
           centerScale = .3
         
           //start position of ball        
-          update_date = {
-              x: 40,
-              y:canvas.height / 2
-          }
-          myBall.update(update_date)
-          console.log('myBall secnod times:',myBall)
-          console.log('myBall getLocation:',myBall.getLocation())
+          myBall.x = 40;
+          myBall.y = canvas.height / 2;
         
      (function drawFrame () {
          
@@ -53,14 +46,13 @@
         
           context.clearRect(0,0,canvas.width,canvas.height);
 
-//          update();
+          update();
           
-//          draw_path();
+          draw_path();
         
           myBall.draw(context);  
-         
-//         console.log('myBall',myBall)
         
+          window.requestAnimationFrame(animate);
         
     }());   
         
@@ -102,7 +94,9 @@ function draw_path(){
 //        console.log(copy_ball.y)
 //        console.log(copy_ball.x)
 //        
-                
+        
+        copy_ball.scaleX = centerScale + Math.sin(Math.PI*speed) * range;
+        
         copy_ball.scaleX = copy_ball.scaleY = centerScale/5
         
         copy_ball.draw(context)
