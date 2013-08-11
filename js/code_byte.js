@@ -13,3 +13,4 @@
 //ignore punchuation
 replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")
 replace(/[0-9]/g,"")
+
