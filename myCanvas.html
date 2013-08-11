@@ -15,10 +15,11 @@
       
       <p><label id = "size-amount">0</label> <input type="range" id="slicer-size" min = "1" max = "100" step = "2" value="0"></p>
       
-<!--      <script src="js/utils.js"></script>-->
+      <script src="js/utils.js"></script>
       <script src="js/draw_shape.js"></script>
       <script src="js/control.js"></script>
     <script>
+
     window.onload = function () {
         
         //initilize my canvas
@@ -27,7 +28,7 @@
        
         //create an image on a canvas, set up position
         ////render my ball circles
-        var myBall = Shape.Ball({})
+        var myBall = Shape.Ball()
           angle = 0
           centerY = 200,
               
@@ -39,52 +40,86 @@
           myBall.x = 40;
           myBall.y = canvas.height / 2;
         
-    window.requestAnimationFrame(animate);
-    function animate() {
+     (function drawFrame () {
+         
+         window.requestAnimationFrame(drawFrame, canvas);
         
-//          context.clearRect(0,0,canvas.width,canvas.height);
+          context.clearRect(0,0,canvas.width,canvas.height);
 
           update();
           
+          draw_path();
+        
           myBall.draw(context);  
         
           window.requestAnimationFrame(animate);
         
-    }   
+    }());   
         
-//       (function drawFrame () {
-//           
-//        window.requestAnimationFrame(drawFrame, canvas);
-//           
-//        
-//           
-//        myBall.draw(context);
-//      }());
-       
-       
-       //mousemove event 
-       canvas.addEventListener('mousemove', function (event) {
-       
-//       console.log(event.clientX + ' ' + event.clientY)
-            //picture rotate
+function draw_path(){
+    start_postion_x = myBall.x 
+    start_postion_y = myBall.y
     
-       }, false);    
+    //balls current motion
+//    myBall.y = canvas.height / 2 + Math.sin(Math.PI*speed) * range; 
+//    myBall.x += .5  
+    
+    //given speed, range, calculate the path
+//    speed += slicer_speed.value/300
+//    range  = slicer_range.value
+      
+      var feq = 800
+      
+      //make a copy
+      // console.log('myBall:',myBall)
+      copy_ball = Shape.Ball()
+      copy_ball.x = myBall.x;
+      copy_ball.y = myBall.y;
+    
+      slicer_speed = document.getElementById('slicer-speed')
+      new_speed = speed
+      new_range = range
+     
+//      console.log('copy_ball:',copy_ball)
+      for (var i = 0; i<feq; i+=1){
+          
+        //need a update method for ball
+//        new_speed   =  speed
+//        new_range   =  range
+        
+        new_speed   += slicer_speed.value/300
+        copy_ball.y = canvas.height / 2 + Math.sin(Math.PI*new_speed) * range 
+        copy_ball.x += .5  
+
+//        console.log(copy_ball.y)
+//        console.log(copy_ball.x)
+//        
+        
+        copy_ball.scaleX = centerScale + Math.sin(Math.PI*speed) * range;
+        
+        copy_ball.scaleX = copy_ball.scaleY = centerScale/5
+        
+        copy_ball.draw(context)
+      }
+}
+       
+       
         
 function update() {
-  var slicer_speed = document.getElementById('slicer-speed')
-        var slicer_range = document.getElementById('slicer-range')
-        var slicer_size  = document.getElementById('slicer-size')
-        
-        var speed_amount = document.getElementById("speed-amount")
-        var range_amount = document.getElementById("range-amount")
-        var size_amount  = document.getElementById("size-amount")
+    var slicer_speed = document.getElementById('slicer-speed')
+    var slicer_range = document.getElementById('slicer-range')
+    var slicer_size  = document.getElementById('slicer-size')
+    
+    var speed_amount = document.getElementById("speed-amount")
+    var range_amount = document.getElementById("range-amount")
+    var size_amount  = document.getElementById("size-amount")
        
 //        context.clearRect(0, 0, canvas.width, canvas.height);
         
         //ball motion - model, update by slicer motion  
         myBall.y = canvas.height / 2 + Math.sin(Math.PI*speed) * range; 
         myBall.x += .5  
-//        myBall.scaleX = centerScale + Math.sin(Math.PI*speed) * range;
+        myBall.scaleX = centerScale + Math.sin(Math.PI*speed) * range;
         
         
         speed += slicer_speed.value/300
@@ -97,8 +132,18 @@ function update() {
         size_amount.innerHTML  = "Size: "  + slicer_size.value
 
 }//end update
+        
+        //mousemove event 
+//       canvas.addEventListener('mousemove', function (event) {
+//       
+////       console.log(event.clientX + ' ' + event.clientY)
+//            //picture rotate
+//    
+//       }, false);   
 
 }; // end window.load 
+        
+         
     </script>
         
 
