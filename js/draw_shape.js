@@ -1,39 +1,70 @@
 //draw a ball
 var Shape = Shape || {}; 
 
-Shape.Ball = function(){
-   var init = {
-       x:0,
-       y:0,
-       radius: 40,
-       rotation:0,
-       scaleX:1,
-       scaleY:1,
-       lineWidth:1,
-       color:"#ff0000"
-   }
-        
-
-    init.draw = function(context){
-      context.save();
-      context.translate(this.x, this.y);
-      context.rotate(this.rotation);
-      context.scale(this.scaleX, this.scaleY);
-      
-      context.lineWidth = this.lineWidth;
-      context.fillStyle = this.color;
-      context.beginPath();
-      //x, y, radius, start_angle, end_angle, anti-clockwise
-      context.arc(0, 0, this.radius, 0, (Math.PI * 2), true);
-      context.closePath();
-      context.fill();
-      if (this.lineWidth > 0) {
-        context.stroke();
-      }
-      context.restore(); 
-    }
-      return init
+Shape.Any = function(my_constructor){
+   var publicMethod = {}
+   
+   //private properties
+   var pos_x   =  my_constructor.pos_x  || 0
+   var pos_y   =  my_constructor.pos_y  || 0
+   var scale_x =  my_constructor.scale_x || 1
+   var scale_y =  my_constructor.scale_y || 1
+   
+//   var rotation = 0,
+//       scale_x = 1,
+//       scale_y = 1,
+//       lineWidth = 1,
+//       color = "#ff0000";
+   
+    publicMethod.getPosition = function(){
+            postion = {}
+            postion.x = pos_x
+            postion.y = pos_y
+            return postion;
+    };
     
+    publicMethod.setPosition = function(x,y){
+            pos_x = x || pos_x
+            pos_y = y || pos_y   
+    };
+    
+    publicMethod.getScale = function(x,y){
+            scale   = {}
+            scale.x = scale_x
+            scale.y = scale_y
+            return scale;
+    };
+    
+    publicMethod.setScale = function(x,y){
+            scale_x = x || scale_x
+            scale_y = y || scale_y
+    };
+        
+   
+    var myPrivateMethod = {}
+        
+    myPrivateMethod.foo = function(){}
+    
+    return publicMethod
+}      
+      
+      
+Shape.Ball = function(my_constructor){
+    var radius = my_constructor.radius || 40
+    var publicMethod   = Shape.Any(my_constructor)
+    
+    that.setRadius = function(){}
+    that.getRadius = function(){}
+    
+    return publicMethod
+
 }
 
+Shape.Triangle = function(my_constructor){
+
+}
+
+Shape.Rec = function(my_constructor){
+
+}
 
